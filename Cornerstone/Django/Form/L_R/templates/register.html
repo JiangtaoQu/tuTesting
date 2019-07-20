@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>register</h1>
+{#<form action="" method="post">#}
+{#    {% csrf_token %}#}
+{#    <label>#}
+{#        用户名：<input type="text" name="username">#}
+{#    </label>#}
+{#    <span style="color: red">{{ name_error }}</span>#}
+{#    <label>#}
+{#        密码：<input type="password" name="password">#}
+{#    </label>#}
+{#    <span style="color: red"></span>#}
+{#    <input type="submit" value="注册">#}
+{#</form>#}
+<!-- novalidate——不做校验 -->
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    {#    <!--做 p 标签-->#}
+    {#    {{ form_obj.as_p }}#}
+    <p>
+        <!--生成对应 label-->
+        {{ form_obj.username.label }}
+        <!--生成 input 框-->
+        {{ form_obj.username }}
+        <!-- errors——会自动生成 ul 标签 -->
+        {{ form_obj.username.errors.0 }}
+    </p>
+    <p>
+        {{ form_obj.password.label }}
+        {{ form_obj.password }}
+        {{ form_obj.password.errors.0 }}
+    </p>
+    <p>
+        {{ form_obj.re_password.label }}
+        {{ form_obj.re_password }}
+        {{ form_obj.re_password.errors.0 }}
+    </p>
+    <p>
+        {{ form_obj.gender.label }}
+        {{ form_obj.gender }}
+        {{ form_obj.gender.errors.0 }}
+    </p>
+    <p>
+        {{ form_obj.hobby.label }}
+        {{ form_obj.hobby }}
+        {{ form_obj.hobby.errors.0 }}
+    </p>
+    <p>
+        {{ form_obj.phone.label }}
+        {{ form_obj.phone }}
+        {{ form_obj.phone.errors.0 }}
+    </p>
+    <!-- form_obj.errors——全局的错误 -->
+    {#        {{ form_obj.errors }}#}
+    <button type="submit">注册</button>
+</form>
+</body>
+</html>
