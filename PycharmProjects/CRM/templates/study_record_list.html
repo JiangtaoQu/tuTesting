@@ -1,0 +1,61 @@
+{# extends——继承 #}
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Study Record List</div>
+        <div class="panel-body">
+            <div>
+                <form action="" method="get" class="form-inline pull-right">
+                    <label>
+                        <input type="text" name="query" class="form-control">
+                        <button class="btn btn-sm btn-primary">搜索</button>
+                    </label>
+                </form>
+            </div>
+            <form action="" method="post" class="form-inline">
+                {% csrf_token %}
+                {{ mfs.management_form }}
+                <button class="btn btn-success btn-sm">Submit</button>
+                <table class="table table-condensed table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th>选择</th>
+                        <th>序号</th>
+                        <th>学生姓名</th>
+                        <th>考勤</th>
+                        <th>成绩</th>
+                        <th>批语</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for mf in mfs %}
+                        <tr>
+                            {{ form.id }}
+                            <td style="display: none">{{ mf.student }}</td>
+                            <!-- forloop.counter——序号-->
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ mf.instance.student.name }}</td>
+                            <td>{{ mf.attendance }}</td>
+                            <td>{{ mf.score }}</td>
+                            <td>{{ mf.homework_note }}</td>
+                            <td>
+                                {#                                <a href="{% url 'edit_consult_record' consult_record.id %}?{{ next_urlencode }}"><i#}
+                                {#                                        class="fa fa-fw">编辑</i>#}
+                                {#                                </a>#}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+            <div style="text-align: center">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {{ pagination }}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+{% endblock %}

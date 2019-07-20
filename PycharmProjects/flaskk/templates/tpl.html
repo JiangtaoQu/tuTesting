@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% if 1|func1(2,3)>0 %}
+        {{ num1 }}
+    {% else %}
+        {{ num2 }}
+    {% endif %}
+
+    {{ func(6,7,1) }}<br>
+    {{ txt }}<br>
+    {% include 'fromm.html' %}
+    <hr>
+    {% macro func2(name,type='text',value='') %}
+        <label>
+            hobie:
+            <input type="{{ type }}" name="{{ value }}">
+        </label>
+        <input type="submit" value="提交">
+    {% endmacro %}
+
+    {{ func2('name1') }}
+    {{ func2('name1') }}
+{% endblock %}
+

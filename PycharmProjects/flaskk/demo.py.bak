@@ -1,0 +1,51 @@
+# -*- coding: utf-8 -*-
+# @Time : 2019/6/11 17:24
+# @Author : Quantum-Ran
+# @Email : ai.ei.ui@live.cn
+# @File : demo.py
+# @Software: PyCharm
+from flask import Flask, render_template, request, redirect, session
+
+# 实例化
+app = Flask(__name__)
+# 加盐
+app.secret_key = 'salt'
+
+
+# 函数绑定路由
+@app.route('/index')
+def index():
+    # 如果不 session 就直接能登陆了
+    # session 默认放在，签名的 cookies 里
+    # 签名——需要设置 app.secret_key
+    user = session.get('user')
+    if not user:
+        return redirect('/login')
+    return render_template('index.html')
+
+
+# 用户登录           默认只支持 GET 请求，但可以改
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        # 要返回页面
+        return render_template('login.html')
+    # request.args——request.get
+    # request.form——request.post
+    user = request.form.get('user')
+    pwd = request.form.get('pwd')
+    if user == 'szl' and pwd == '666':
+        session['user'] = user
+        return redirect('/index')
+    return render_template('login.html', **{'error': '用户名或密码错误'})
+
+
+@app.route('/')
+def first():
+    return render_template('first.html')
+
+
+# 以主函数运行才 run 起来，别人导入不应该执行 run
+if __name__ == '__main__':
+    # 启动 socket
+    app.run()

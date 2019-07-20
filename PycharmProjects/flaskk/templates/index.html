@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>学生列表</h1>
+<img src="/static/images.jpg" alt="未加载">
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>name</th>
+        <th>age</th>
+        <th>gender</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for k,v in stu_dict.items() %}
+        <tr>
+            <td>{{ k }}</td>
+            <td>{{ v.get('name','None') }}</td>
+            <td>{{ v.get('age','None') }}</td>
+            <td>{{ v.get('gender','None') }}</td>
+            <td><a href="/detail/{{ k }}">查看详情</a>|<a href="/delete/{{ k }}">删除</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+</body>
+</html>
